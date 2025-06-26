@@ -92,19 +92,16 @@
   }
 
   startBtn.addEventListener('click', () => {
-    if (Notification.permission !== 'granted') {
-      Notification.requestPermission().then(p => {
-        if (p !== 'granted') {
-          alert('請允許通知權限才能提醒散步時間喔！');
-          return;
-        }
-        startCountdown();
-      });
-    } else {
+ if ('Notification' in window) {
+    Notification.requestPermission().then(() => {
+      // 不管有沒有允許，都直接開始倒數
       startCountdown();
-    }
-  });
-
+    });
+  } else {
+    // Safari 不支援 Notification，照樣倒數
+    startCountdown();
+  }
+});
   function startCountdown() {
     timer = 600;
     startBtn.disabled = true;
