@@ -250,19 +250,7 @@
   // 頁面載入時讀取留言
   loadRecords();
 </script>
-<div class="box">
-  <h3>🌞 今日溫暖小語</h3>
-  <p id="quote">載入中...</p>
-</div>
-<script>
-  const quotes = [
-    "有你在，這個家就很溫暖。❤️",
-    "要好好吃飯",
-    "記得喝水，也要記得照顧自己。",
-    "今天也許平凡，但你是重要的存在。",
-    "願今天的你，輕鬆自在，心情晴朗。",
-    "身邊的人都愛你，連我也是。✨"
-  ];
+
 
   function getTodayKey() {
     return new Date().toISOString().slice(0, 10);
