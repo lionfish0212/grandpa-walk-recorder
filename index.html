@@ -216,7 +216,7 @@
       };
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+       const audioBlob = new Blob(audioChunks); // 不指定格式，讓瀏覽器決定最相容的
         const audioUrl = URL.createObjectURL(audioBlob);
 
         const record = {
