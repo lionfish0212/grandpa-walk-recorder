@@ -47,46 +47,7 @@
 <button id="saveFeelBtn">保存狀態</button>
 <div id="savedFeel"></div>
 
-<h3>歷史紀錄</h3>
-<ul id="historyList"></ul>
-
-<script>
-  const feelSelect = document.getElementById('feelSelect');
-  const saveFeelBtn = document.getElementById('saveFeelBtn');
-  const savedFeel = document.getElementById('savedFeel');
-  const historyList = document.getElementById('historyList');
-
-  // 儲存資料
-  function saveFeel() {
-    const today = new Date().toISOString().slice(0, 10);
-    const value = feelSelect.value;
-    if (!value) {
-      alert('請選擇散步感覺');
-      return;
-    }
-
-    let history = JSON.parse(localStorage.getItem('feelHistory') || '{}');
-    history[today] = value;
-    localStorage.setItem('feelHistory', JSON.stringify(history));
-    savedFeel.textContent = `已儲存：${today} - ${value}`;
-    renderHistory();
-  }
-
-  // 顯示歷史資料
-  function renderHistory() {
-    const history = JSON.parse(localStorage.getItem('feelHistory') || '{}');
-    historyList.innerHTML = '';
-    Object.entries(history).forEach(([date, feeling]) => {
-      const li = document.createElement('li');
-      li.textContent = `${date}：${feeling}`;
-      historyList.appendChild(li);
-    });
-  }
-
-  saveFeelBtn.addEventListener('click', saveFeel);
-  renderHistory();
-</script>
-
+<hr />
 
 <h2>家庭語音留言板</h2>
 
