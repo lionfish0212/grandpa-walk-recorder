@@ -36,7 +36,6 @@
 <button id="startBtn">開始散步</button>
 <div id="timer">10:00</div>
 <div id="status"></div>
-
 <label for="feelSelect">今天散步感覺：</label>
 <select id="feelSelect">
   <option value="">--選擇狀態--</option>
@@ -109,7 +108,44 @@
     status.textContent = '散步中...加油！';
     updateTimer();
     intervalId = setInterval(updateTimer, 1000);
+  }  // 散步感覺記錄＋歷史狀態顯示
+  const feelSelect = document.getElementById('feelSelect');
+  const saveFeelBtn = document.getElementById('saveFeelBtn');
+  const savedFeel = document.getElementById('savedFeel');
+
+  function getTodayKey() {
+    return new Date().toISOString().slice(0, 10);
   }
+
+  function saveFeel() {
+    const val = feelSelect.value;
+    if (!val) {
+      alert('請選擇散步感覺');
+      return;
+    }
+
+    const today = getTodayKey();
+    let history = JSON.parse(localStorage.getItem('feelHistory') || '{}');
+    history[today] = val;
+    localStorage.setItem('feelHistory', JSON.stringify(history));
+    updateFeelDisplay();
+  }
+
+  function updateFeelDisplay() {
+    const today = getTodayKey();
+    const history = JSON.parse(localStorage.getItem('feelHistory') || '{}');
+    const todayStatus = history[today];
+    if (todayStatus) {
+      savedFeel.textContent = `今天 (${today}) 的狀態：${todayStatus}`;
+      feelSelect.value = todayStatus;
+    } else {
+      savedFeel.textContent = '今天尚未記錄散步狀態';
+    }
+  }
+
+  saveFeelBtn.addEventListener('click', saveFeel);
+  updateFeelDisplay();
+
 
   // 其他程式碼保持不變...
 </script>
